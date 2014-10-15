@@ -1,6 +1,7 @@
-// (c) Damian Bernardi | SomniumSoft
+// Damian Bernardi (c) Somniumsoft
 
 using UnityEngine;
+using System.Diagnostics;
 
 static public class Log
 {
@@ -74,6 +75,39 @@ static public class Log
     static public void F(params object[] objects){ Write(1, Insert(objects, "F")); }
     static public void G(params object[] objects){ Write(1, Insert(objects, "G")); }
 
+	#region Chronometer
+	static Stopwatch stopWatch = new Stopwatch();
+	
+	public static void Start(){
+		
+		Reset();
+		stopWatch.Start();
+	}
+	
+	public static void Continue(){
+		
+		stopWatch.Start();
+	}
+	
+	public static void Stop(){
+		
+		stopWatch.Stop();
+		Log.SYSTEM("" + stopWatch.Elapsed.TotalSeconds);
+	}
+	
+	public static void Stop(string text){
+		
+		stopWatch.Stop();
+		Log.SYSTEM(text + ": " + stopWatch.Elapsed.TotalSeconds);
+	}
+	
+	public static void Reset(){
+		
+		stopWatch.Reset();
+	}
+	#endregion
+
+	#region Insert
     static private object[] Insert(object[] objects, params object[] moreObjects){
 
         object[] newObjects = null;
@@ -102,7 +136,9 @@ static public class Log
 
         return newObjects;
     }
+	#endregion
 
+	#region Write
     static private void Write(int type, params object[] objects){
 
         string text = "";
@@ -138,18 +174,19 @@ static public class Log
             case 0:
             default:
 
-                Debug.Log(text);
+                UnityEngine.Debug.Log(text);
                 break;
 
             case 1:
 
-                Debug.LogWarning(text);
+				UnityEngine.Debug.LogWarning(text);
                 break;
 
             case 2:
 
-                Debug.LogError(text);
+				UnityEngine.Debug.LogError(text);
                 break;
         }
     }
+	#endregion
 }

@@ -84,5 +84,24 @@ public class MonoBehaviour : UnityEngine.MonoBehaviour
         o.layer = layer;
         return o;
     }
+
+	internal static T Create<T>(string name){
+		
+		return Create<T>(name, null, 0);
+	}
+
+	internal static T Create<T>(string name, Transform parent){
+		
+		return Create<T>(name, parent, 0);
+	}
+
+	internal static T Create<T>(string name, Transform parent, int layer){
+
+		GameObject o = new GameObject(name, typeof(T));
+		o.transform.parent = parent;
+		o.layer = layer;
+
+		return (T) System.Convert.ChangeType(o.GetComponent(typeof(T)), typeof(T));
+	}
     #endregion
 }

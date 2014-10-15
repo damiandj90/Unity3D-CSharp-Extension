@@ -23,7 +23,7 @@ public class GUI : UnityEngine.GUI
 	#endregion
 
 	#region Texture
-	public static void Texture(int x, int y, int width, int height, Texture2D texture){
+	public static void Texture(int x, int y, int width, int height, Texture  texture){
 
 		GUI.DrawTexture(new Rect(x, y, width, height), texture);
 	}

@@ -31,7 +31,7 @@ public class Physics : UnityEngine.Physics
         
         if(radius.Length != masks.Length){
             
-            Log.ERROR("No correct use of raycast");
+            Log.ERROR("Incorrect use of overlap sphere mask");
             return default(List<Collider[]>);
         }
 
@@ -41,23 +41,5 @@ public class Physics : UnityEngine.Physics
         }
 
         return List; 
-    }
-
-    public static bool Raycast(Ray ray, out RaycastHit hit, float[] distances, params LayerMask[] masks){
-
-        if(distances.Length != masks.Length){
-
-            Log.ERROR("No corrent use of raycast");
-            hit = default(RaycastHit);
-            return false;
-        }
-
-        for(int n = 0; n < masks.Length; n++){
-
-
-        }
-
-        hit = default(RaycastHit);
-        return false;
     }
 }
