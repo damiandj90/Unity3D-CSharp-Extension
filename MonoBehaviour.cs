@@ -6,102 +6,122 @@ public class MonoBehaviour : UnityEngine.MonoBehaviour
 {
 
     #region Instantiate
-    internal static GameObject Instantiate(string name){
+	internal static GameObject Instantiate (string name){
 
-        return Instantiate(name, null, null, Vector3.zero, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, null, null, Vector3.zero, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, Transform parent){
+	internal static GameObject Instantiate (string name, Transform parent){
         
-        return Instantiate(name, null, parent, Vector3.zero, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, null, parent, Vector3.zero, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, GameObject gameObject){
+	internal static GameObject Instantiate (string name, GameObject gameObject){
         
-        return Instantiate(name, gameObject, null, Vector3.zero, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, gameObject, null, Vector3.zero, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, GameObject gameObject, Vector3 position){
+	internal static GameObject Instantiate (string name, GameObject gameObject, Vector3 position){
         
-        return Instantiate(name, gameObject, null, position, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, gameObject, null, position, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, GameObject gameObject, Transform parent){
+	internal static GameObject Instantiate (string name, GameObject gameObject, Transform parent){
 
-        return Instantiate(name, gameObject, parent, Vector3.zero, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, gameObject, parent, Vector3.zero, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, GameObject gameObject, Transform parent, Vector3 position){
+	internal static GameObject Instantiate (string name, GameObject gameObject, Transform parent, Vector3 position){
         
-        return Instantiate(name, gameObject, parent, position, Quaternion.identity, Vector3.one);
-    }
+		return Instantiate(name, gameObject, parent, position, Quaternion.identity, Vector3.one);
+	}
 
-    internal static GameObject Instantiate(string name, GameObject gameObject, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale){
+	internal static GameObject Instantiate (string name, GameObject gameObject, Transform parent, Vector3 position, Quaternion rotation, Vector3 scale){
 
-        gameObject = gameObject ? GameObject.Instantiate(gameObject, position, rotation) as GameObject : new GameObject();
-        gameObject.name = name;
+		gameObject = gameObject ? GameObject.Instantiate(gameObject, position, rotation) as GameObject : new GameObject();
+		gameObject.name = name;
 
-        if(parent){
+		if ( parent ){
 
-            gameObject.transform.parent = parent;
-        }
+			gameObject.transform.parent = parent;
+		}
 
-        gameObject.transform.localScale = scale;
-        return gameObject;
-    }
+		gameObject.transform.localScale = scale;
+		return gameObject;
+	}
     #endregion
 
     #region GameObject
-    internal static GameObject Create(){
+	internal static GameObject Create (){
         
-        return Create("", null, 0, null);
-    }
+		return Create("", null, 0, null);
+	}
 
-    internal static GameObject Create(string name){
+	internal static GameObject Create (string name){
         
-        return Create(name, null, 0, null);
-    }
+		return Create(name, null, 0, null);
+	}
 
-    internal static GameObject Create(int layer){
+	internal static GameObject Create (int layer){
         
-        return Create("", null, layer, null);
-    }
+		return Create("", null, layer, null);
+	}
 
-    internal static GameObject Create(string name, Transform parent, int layer){
+	internal static GameObject Create (string name, Transform parent, int layer){
 
-        return Create(name, parent, layer, null);
-    }
+		return Create(name, parent, layer, null);
+	}
 
-    internal static GameObject Create(string name, Transform parent, params System.Type[] types){
+	internal static GameObject Create (string name, Transform parent, params System.Type[] types){
         
-        return Create(name, parent, 0, types);
-    }
+		return Create(name, parent, 0, types);
+	}
 
-    internal static GameObject Create(string name, Transform parent, int layer, params System.Type[] types){
+	internal static GameObject Create (string name, Transform parent, int layer, params System.Type[] types){
 
-        GameObject o = types != null ? new GameObject(name, types) : new GameObject(name);
-        o.transform.parent = parent;
-        o.layer = layer;
-        return o;
-    }
+		GameObject o = types != null ? new GameObject(name, types) : new GameObject(name);
+		o.transform.parent = parent;
+		o.layer = layer;
+		return o;
+	}
 
-	internal static T Create<T>(string name){
+	internal static T Create<T> (string name){
 		
 		return Create<T>(name, null, 0);
 	}
 
-	internal static T Create<T>(string name, Transform parent){
+	internal static T Create<T> (string name, Transform parent){
 		
 		return Create<T>(name, parent, 0);
 	}
 
-	internal static T Create<T>(string name, Transform parent, int layer){
+	internal static T Create<T> (string name, Transform parent, int layer){
 
-		GameObject o = new GameObject(name, typeof(T));
+		GameObject o = new GameObject(name, typeof( T ));
 		o.transform.parent = parent;
 		o.layer = layer;
 
-		return (T) System.Convert.ChangeType(o.GetComponent(typeof(T)), typeof(T));
+		return ( T ) System.Convert.ChangeType(o.GetComponent(typeof( T )), typeof( T ));
 	}
     #endregion
+
+}
+
+public static class MonoExtensions
+{
+
+	#region Components
+	internal static T AddComponent<T> (this MonoBehaviour mono){
+		
+		return ( T ) System.Convert.ChangeType(mono.gameObject.AddComponent(typeof( T )), typeof( T ));
+	}
+
+	internal static void AddComponents<T1, T2> (this MonoBehaviour mono, params System.Type[] types){
+
+		foreach ( System.Type type in types ){
+
+			mono.gameObject.AddComponent(type);
+		}
+	}
+	#endregion
 }
