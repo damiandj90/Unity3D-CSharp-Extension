@@ -8,18 +8,24 @@ using System.Collections.Generic;
 public class GUI : UnityEngine.GUI
 {
 
-	public static bool Button(int x, int y, int width, int height, string text){
-	
-		return GUI.Button(new Rect(x, y, width, height), text);
+	#region Label
+	public static void Label(int x, int y, int width, int height, string text){
+		
+		GUI.Label(new Rect(x, y, width, height), text);
 	}
+	#endregion
 
+	#region Button
+	public static bool Button(int x, int y, int width, int height, GUIContent content){
+		
+		return GUI.Button(new Rect(x, y, width, height), content);
+	}
+	#endregion
+
+	#region Texture
 	public static void Texture(int x, int y, int width, int height, Texture2D texture){
 
 		GUI.DrawTexture(new Rect(x, y, width, height), texture);
 	}
-
-	public static void Label(int x, int y, int width, int height, string text){
-
-		GUI.Label(new Rect(x, y, width, height), text);
-	}
+	#endregion
 }

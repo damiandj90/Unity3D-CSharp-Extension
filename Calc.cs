@@ -1,4 +1,4 @@
-// (c) Damian Bernardi | SomniumSoft
+// Damian Bernardi (c) Somniumsoft
 
 using UnityEngine;
 
@@ -23,9 +23,9 @@ public static class Calc
         return int.Parse(value.ToString("F0"));
     }
 
-    public static float Round(float value, int number){
+    public static float Round(float value, int decimals){
 
-        return float.Parse(value.ToString("F" + number));
+        return float.Parse(value.ToString("F" + decimals));
     }
     #endregion
 	

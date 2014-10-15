@@ -3,41 +3,36 @@
 using UnityEngine;
 using System.Diagnostics;
 
-namespace Deriva
+public class Chrono
 {
 
-    public class Chronometer
-	{
+    static Stopwatch stopWatch = new Stopwatch();
 
-        static Stopwatch stopWatch = new Stopwatch();
+    public static void Start(){
 
-        public static void Start(){
+        Reset();
+        stopWatch.Start();
+    }
 
-            Reset();
-            stopWatch.Start();
-        }
+    public static void Continue(){
 
-        public static void Continue(){
+        stopWatch.Start();
+    }
 
-            stopWatch.Start();
-        }
+    public static void Stop(){
 
-        public static void Stop(){
+        stopWatch.Stop();
+        Log.SYSTEM("" + stopWatch.Elapsed.TotalSeconds);
+    }
 
-            stopWatch.Stop();
-            Log.SYSTEM("" + stopWatch.Elapsed.TotalSeconds);
-        }
+    public static void Stop(string text){
+        
+        stopWatch.Stop();
+        Log.SYSTEM(text + ": " + stopWatch.Elapsed.TotalSeconds);
+    }
 
-        public static void Stop(string text){
-            
-            stopWatch.Stop();
-            Log.SYSTEM(text + ": " + stopWatch.Elapsed.TotalSeconds);
-        }
+    public static void Reset(){
 
-        public static void Reset(){
-
-            stopWatch.Reset();
-        }
+        stopWatch.Reset();
     }
 }
-
