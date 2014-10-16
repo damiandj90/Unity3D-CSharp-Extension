@@ -14,6 +14,11 @@ public static class ColorExtensions
 	//convert string to color
 	public static Color ToColor (this string hex){
 		
+		return ToColor32(hex);
+	}
+
+	public static Color32 ToColor32 (this string hex){
+		
 		return new Color32(byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber),
 		                   byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber),
 		                   byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), 255);

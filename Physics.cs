@@ -9,37 +9,37 @@ using System.Collections.Generic;
 public class Physics : UnityEngine.Physics
 {
 
-    //raycast based on layer mask order from below
-    public static bool RaycastMask(Ray ray, out RaycastHit hit, float distance, params LayerMask[] masks){
+	//raycast based on layer mask order from below
+	public static bool RaycastMask (Ray ray, out RaycastHit hit, float distance, params LayerMask[] masks){
 
-        for(int n = 0; n < masks.Length; n++){
+		for ( int n = 0; n < masks.Length; n++ ){
 
-            if (Physics.Raycast(ray, out hit, distance, masks[n])){
+			if ( Physics.Raycast(ray, out hit, distance, masks[n]) ){
 
-                return true;
-            }
-        }
+				return true;
+			}
+		}
 
-        hit = new RaycastHit();
-        return false;
-    }
+		hit = new RaycastHit();
+		return false;
+	}
 
-    //overlap sphere with specific raidus on layer mask
-    public static List<Collider[]> OverlapSphereMask(Vector3 position, float[] radius, params LayerMask[] masks){
+	//overlap sphere with specific raidus on layer mask
+	public static List<Collider[]> OverlapSphereMask (Vector3 position, float[] radius, params LayerMask[] masks){
 
-        List<Collider[]> List = new List<Collider[]>();
+		List<Collider[]> List = new List<Collider[]>();
         
-        if(radius.Length != masks.Length){
+		if ( radius.Length != masks.Length ){
             
-            Log.ERROR("Incorrect use of overlap sphere mask");
-            return default(List<Collider[]>);
-        }
+			Log.ERROR("Incorrect use of overlap sphere mask");
+			return default(List<Collider[]>);
+		}
 
-        for(int n = 0; n < radius.Length; n++){
+		for ( int n = 0; n < radius.Length; n++ ){
 
-            List.Add(Physics.OverlapSphere(position, radius[n], masks[masks.Length > n ? n : 0]));
-        }
+			List.Add(Physics.OverlapSphere(position, radius[n], masks[masks.Length > n ? n : 0]));
+		}
 
-        return List; 
-    }
+		return List; 
+	}
 }

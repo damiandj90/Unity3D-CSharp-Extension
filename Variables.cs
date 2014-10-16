@@ -5,7 +5,7 @@ using UnityEngine;
 public static class VariablesExtensions
 {
 
-	#region Index
+	#region Int
 	public static int Index (this string value, string[] values){
 		
 		for ( int n = 1; n < values.Length; n++ ){
@@ -31,9 +31,7 @@ public static class VariablesExtensions
 		
 		return 0;
 	}
-	#endregion
 
-	#region Nearest
 	public static int Nearest (this int value, int[] values){
 		
 		int range = Calc.Distance(value, values[0]);
@@ -66,6 +64,18 @@ public static class VariablesExtensions
 		}
 		
 		return position;
+	}
+	#endregion
+
+	#region Hit
+	public static T GetComponent<T> (this RaycastHit hit){
+
+		return ( T ) System.Convert.ChangeType(hit.collider.GetComponent(typeof( T )), typeof( T ));
+	}
+
+	public static T GetComponentInParent<T> (this RaycastHit hit){
+		
+		return ( T ) System.Convert.ChangeType(hit.collider.transform.parent.GetComponent(typeof( T )), typeof( T ));
 	}
 	#endregion
 }
