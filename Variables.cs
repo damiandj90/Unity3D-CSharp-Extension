@@ -68,9 +68,10 @@ public static class VariablesExtensions
 	#endregion
 
 	#region Hit
-	public static T GetComponent<T> (this RaycastHit hit){
+	public static T GetComponent<T> (this RaycastHit hit) where T : class{
 
-		return ( T ) System.Convert.ChangeType(hit.collider.GetComponent(typeof( T )), typeof( T ));
+		return hit.collider.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(hit.collider.GetComponent(typeof( T )), hit.collider.GetComponent(typeof( T )).GetType()) : default(T);
 	}
 
 	public static T GetComponentInParent<T> (this RaycastHit hit){
