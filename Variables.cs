@@ -79,4 +79,11 @@ public static class VariablesExtensions
 		return ( T ) System.Convert.ChangeType(hit.collider.transform.parent.GetComponent(typeof( T )), typeof( T ));
 	}
 	#endregion
+
+	#region Camera
+	public static Vector3 ScreenPointToRay (this Camera camera, Vector2 position, float distance){
+
+		return camera.ScreenPointToRay(position).GetPoint(distance);
+	}
+	#endregion
 }
