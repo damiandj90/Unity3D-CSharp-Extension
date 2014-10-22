@@ -6,6 +6,7 @@ using System.Diagnostics;
 static public class Log
 {
 
+	private static Transform LogDirectory;
 	private static int counter = 0;
 
 	//simple game messages
@@ -91,8 +92,15 @@ static public class Log
 
 	#region Point
 	static public void POINT (Vector3 position){
+
+		if ( !LogDirectory ){
+
+			LogDirectory = MonoBehaviour.Create<Transform>("Log");
+		}
 		
-		GameObject go = new GameObject("Test Point");
+		GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		go.name = "Point (" + position + ")";
+		go.transform.parent = LogDirectory;
 		go.transform.position = position;
 	}
 	#endregion
