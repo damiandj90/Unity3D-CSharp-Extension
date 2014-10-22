@@ -1,6 +1,32 @@
 // Damian Bernardi (c) Somniumsoft
 
 using UnityEngine;
+using System;
+
+#region IntVector3
+public struct IntVector3
+{
+	public int x, y, z;
+	
+	public IntVector3 (int x, int z){
+		
+		this.x = x;
+		this.y = 0;
+		this.z = z;
+	}
+	
+	public IntVector3 (int x, int y, int z){
+		
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+	
+	int sqrMagnitude {
+		get { return x * x + y * y + z * z; }
+	}
+}
+#endregion
 
 public static class VariablesExtensions
 {
@@ -67,6 +93,40 @@ public static class VariablesExtensions
 	}
 	#endregion
 
+	#region String
+
+	public static string ToString (this float value, string format, bool showInteger){
+
+		if ( showInteger ){
+
+			if ( float.Parse(value.ToString(format)) % 1 == 0 ){
+
+				return value.ToString("F0");
+			}
+		}
+
+		return value.ToString(format);
+	}
+
+	//replace with chars
+	public static string ReplaceChars (this string text, string chars, string replace){
+		
+		for ( int n = 0; n < chars.Length; n++ ){
+			
+			text = text.Replace(chars.Substring(n, 1), replace);
+		}
+		
+		return text;
+	}
+	#endregion
+
+	#region Vector3
+	public static IntVector3 ToIntVector3 (this Vector3 v){
+
+		return new IntVector3(( int ) v.x, ( int ) v.y, ( int ) v.z);
+	}
+	#endregion
+
 	#region Hit
 	public static T GetComponent<T> (this RaycastHit hit) where T : class{
 
@@ -75,8 +135,15 @@ public static class VariablesExtensions
 	}
 
 	public static T GetComponentInParent<T> (this RaycastHit hit){
+
+		return hit.collider.transform.parent.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(hit.collider.transform.parent.GetComponent(typeof( T )), hit.collider.transform.parent.GetComponent(typeof( T )).GetType()) : default(T);
+	}
+
+	public static T GetComponentInRoot<T> (this RaycastHit hit){
 		
-		return ( T ) System.Convert.ChangeType(hit.collider.transform.parent.GetComponent(typeof( T )), typeof( T ));
+		return hit.collider.transform.root.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(hit.collider.transform.root.GetComponent(typeof( T )), hit.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
 	}
 	#endregion
 
