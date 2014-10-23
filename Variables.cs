@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 #region IntVector3
 public struct IntVector3
@@ -152,6 +153,18 @@ public static class VariablesExtensions
 	public static Vector3 ScreenPointToRay (this Camera camera, Vector2 position, float distance){
 
 		return camera.ScreenPointToRay(position).GetPoint(distance);
+	}
+	#endregion
+
+	#region List
+
+	//Add list to list if there are elements
+	public static void AddSafe <T> (this List<List<T>> list, List<T> a){
+
+		if ( a.Count > 0 ){
+
+			list.Add(a);
+		}
 	}
 	#endregion
 }
