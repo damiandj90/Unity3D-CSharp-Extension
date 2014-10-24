@@ -29,5 +29,17 @@ namespace UnityEngine
 			
 			return Points;
 		}
+
+		//Return uniform plane of points
+		static public List<Vector3> Plane (float numbers, float size){
+
+			return new List<Vector3>();
+		}
+
+		//Return uniform Cube of points
+		static public List<Vector3> Cube (float numbers, float size){
+
+			return new List<Vector3>();
+		}
 	}
 }
