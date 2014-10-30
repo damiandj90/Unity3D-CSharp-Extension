@@ -123,10 +123,18 @@ public static class VariablesExtensions
 	#endregion
 
 	#region Vector3
+	public static Vector3 Add (this Vector3 v, float a){
+		
+		return new Vector3(v.x + a, v.y + a, v.z + a);
+	}
+	#endregion
+
+	#region InVector3
 	public static IntVector3 ToIntVector3 (this Vector3 v){
 
 		return new IntVector3(( int ) v.x, ( int ) v.y, ( int ) v.z);
 	}
+
 	#endregion
 
 	#region Hit
