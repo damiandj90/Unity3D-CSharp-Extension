@@ -52,19 +52,26 @@ public class MonoBehaviour : UnityEngine.MonoBehaviour
 		}
 		else{
 
-			if ( go.GetComponent(typeof( T )) ){
-
-				return ( T ) System.Convert.ChangeType(go.GetComponent(typeof( T )), typeof( T ));
+			if ( typeof( T ) == typeof( Transform ) ){
+				
+				return ( T ) System.Convert.ChangeType(go.transform, typeof( T ));
 			}
 			else{
-
-				return ( T ) System.Convert.ChangeType(go.AddComponent(typeof( T )), typeof( T ));
+			
+				if ( go.GetComponent(typeof( T )) ){
+					
+					return ( T ) System.Convert.ChangeType(go.GetComponent(typeof( T )), typeof( T ));
+				}
+				else{
+					
+					return ( T ) System.Convert.ChangeType(go.AddComponent(typeof( T )), typeof( T ));
+				}
 			}
 		}
 	}
     #endregion
 
-    #region GameObject
+    #region Create
 
 	public static T Create<T> (){
 		
@@ -103,7 +110,21 @@ public class MonoBehaviour : UnityEngine.MonoBehaviour
 		}
 		else{
 
-			return ( T ) System.Convert.ChangeType(go.AddComponent(typeof( T )), typeof( T ));
+			if ( typeof( T ) == typeof( Transform ) ){
+
+				return ( T ) System.Convert.ChangeType(go.transform, typeof( T ));
+			}
+			else{
+
+				if ( go.GetComponent(typeof( T )) ){
+					
+					return ( T ) System.Convert.ChangeType(go.GetComponent(typeof( T )), typeof( T ));
+				}
+				else{
+					
+					return ( T ) System.Convert.ChangeType(go.AddComponent(typeof( T )), typeof( T ));
+				}
+			}
 		}
 	}
     #endregion
