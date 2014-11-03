@@ -3,7 +3,25 @@
 
 using UnityEngine;
 using System;
+using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
+
+#region List
+public class List<T> :  System.Collections.Generic.List<T>
+{
+	
+	public List (params IEnumerable<T>[] a){
+		
+		this.AddRange(a);
+	}
+	
+	public List (params T[] a){
+		
+		this.AddRange(a);
+	}
+}
+#endregion
 
 #region IntVector3
 public struct IntVector3
@@ -167,11 +185,19 @@ public static class VariablesExtensions
 	#region List
 
 	//Add list to list if there are elements
-	public static void AddSafe <T> (this List<List<T>> list, List<T> a){
+	public static void AddSafe <T> (this List<List<T>> a, List<T> b){
 
-		if ( a.Count > 0 ){
+		if ( b.Count > 0 ){
 
-			list.Add(a);
+			a.Add(b);
+		}
+	}
+
+	public static void AddRange <T> (this List<T> a, params IEnumerable<T>[] b){
+
+		for ( int n = 0; n < b.Length; n++ ){
+				
+			a.AddRange(b[n]);
 		}
 	}
 	#endregion
