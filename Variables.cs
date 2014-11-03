@@ -48,8 +48,66 @@ public struct IntVector3
 }
 #endregion
 
+#region Matrix 1x2
+public struct Matrix1x2
+{
+	public int x, y;
+	public Matrix1x2 (int X, int Y){
+		
+		x = X;
+		y = Y;
+	}
+	
+	public void Set (int X, int Y){
+		
+		x = X;
+		y = Y;
+	}
+	
+	public static Matrix1x2 Zero = new Matrix1x2(0, 0);
+}
+#endregion
+
 public static class VariablesExtensions
 {
+
+	#region Bool
+	public static bool And (this bool a, params bool[] b){
+
+		if ( !a ){
+
+			return false;
+		}
+
+		for ( int n = 0; n < b.Length; n++ ){
+			
+			if ( b[n] == false ){
+				
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static bool Or (this bool a, params bool[] b){
+
+		if ( a ){
+
+			return true;
+		}
+
+		for ( int n = 0; n < b.Length; n++ ){
+			
+			if ( b[n] == true ){
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	#endregion
 
 	#region Int
 	public static int Index (this string value, string[] values){
@@ -202,3 +260,14 @@ public static class VariablesExtensions
 	}
 	#endregion
 }
+
+#region Quaternion
+public static class QUATERNION
+{
+	
+	public static Quaternion LookPlayer (Vector3 right, Vector3 normal, float rotation){
+		
+		return Quaternion.LookRotation(right - ( Vector3.Dot(right, normal) ) * normal, normal) * Quaternion.Euler(0, rotation, 0);
+	}
+}
+#endregion
