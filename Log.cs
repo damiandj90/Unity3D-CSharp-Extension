@@ -10,6 +10,7 @@ static public class Log
 	private static Transform LogDirectory;
 	private static int counter = 0;
 
+	#region Debug
 	//simple game messages
 	static public void GAME (params object[] objects){
         
@@ -90,6 +91,21 @@ static public class Log
 	static public void G (params object[] objects){
 		Write(1, Insert(objects, "G"));
 	}
+	#endregion
+
+	#region Draw
+	static public void Draw (float x, float y, float width, float height){
+
+		Draw(x, y, width, height, new Texture2D(10, 10, TextureFormat.Alpha8, false));
+	}
+
+	static public void Draw (float x, float y, float width, float height, Texture2D texture){
+		
+		GUI.DrawTexture(new Rect(x, y, width, height), texture);
+		
+		Write(0, Insert(new object[]{x, y, width, height}, "DRAW"));
+	}
+	#endregion
 
 	#region Point
 	static public void POINT (Vector3 position){
