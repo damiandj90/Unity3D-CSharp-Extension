@@ -2,9 +2,6 @@
 // You are free to use this file in your project
 
 using UnityEngine;
-using System;
-using System.Linq.Expressions;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 
 #region List
@@ -257,6 +254,11 @@ public static class VariablesExtensions
 				
 			a.AddRange(b[n]);
 		}
+	}
+
+	public static void Add (this List<int> list, params int[] objects){
+		
+		list.AddRange(objects);
 	}
 	#endregion
 }

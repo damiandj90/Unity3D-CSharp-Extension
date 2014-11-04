@@ -2,9 +2,6 @@
 // You are free to use this file in your project
 
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 
 public class Physics : UnityEngine.Physics

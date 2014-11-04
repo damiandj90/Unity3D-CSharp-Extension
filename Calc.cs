@@ -72,4 +72,29 @@ public static class Calc
 		return 0 > a ? -a : a;
 	}
 	#endregion
+
+	#region Random
+	//get random element from array of objects
+	public static object Random (this object[] objects){
+		
+		return objects.Length > 0 ? objects[UnityEngine.Random.Range(0, objects.Length)] : default(object);
+	}
+	
+	public static T Random<T> (this T[] objects){
+		
+		return objects.Length > 0 ? objects[UnityEngine.Random.Range(0, objects.Length)] : default(T);
+	}
+	#endregion
+
+	#region Limit
+	public static float Limit (float a){
+		
+		return Limit(a, 0.1f);
+	}
+
+	public static float Limit (float a, float b){
+
+		return a - b;
+	}
+	#endregion
 }
