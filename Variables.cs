@@ -2,6 +2,7 @@
 // You are free to use this file in your project
 
 using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 #region List
@@ -107,11 +108,11 @@ public static class VariablesExtensions
 	#endregion
 
 	#region Int
-	public static int Index (this string value, string[] values){
+	public static int Index (this string a, string[] b){
 		
-		for ( int n = 1; n < values.Length; n++ ){
+		for ( int n = 1; n < b.Length; n++ ){
 
-			if ( value == values[n] ){
+			if ( a == b[n] ){
 
 				return n;
 			}
@@ -170,17 +171,17 @@ public static class VariablesExtensions
 
 	#region String
 
-	public static string ToString (this float value, string format, bool showInteger){
+	public static string ToString (this float v, string f, bool showInteger){
 
 		if ( showInteger ){
 
-			if ( float.Parse(value.ToString(format)) % 1 == 0 ){
+			if ( float.Parse(v.ToString(f)) % 1 == 0 ){
 
-				return value.ToString("F0");
+				return v.ToString("F0");
 			}
 		}
 
-		return value.ToString(format);
+		return v.ToString(f);
 	}
 
 	//replace with chars
@@ -211,29 +212,29 @@ public static class VariablesExtensions
 	#endregion
 
 	#region Hit
-	public static T GetComponent<T> (this RaycastHit hit) where T : class{
+	public static T GetComponent<T> (this RaycastHit h) where T : class{
 
-		return hit.collider.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(hit.collider.GetComponent(typeof( T )), hit.collider.GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(h.collider.GetComponent(typeof( T )), h.collider.GetComponent(typeof( T )).GetType()) : default(T);
 	}
 
-	public static T GetComponentInParent<T> (this RaycastHit hit){
+	public static T GetComponentInParent<T> (this RaycastHit h){
 
-		return hit.collider.transform.parent.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(hit.collider.transform.parent.GetComponent(typeof( T )), hit.collider.transform.parent.GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.transform.parent.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(h.collider.transform.parent.GetComponent(typeof( T )), h.collider.transform.parent.GetComponent(typeof( T )).GetType()) : default(T);
 	}
 
-	public static T GetComponentInRoot<T> (this RaycastHit hit){
-		
-		return hit.collider.transform.root.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(hit.collider.transform.root.GetComponent(typeof( T )), hit.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
+	public static T GetComponentInRoot<T> (this RaycastHit h){
+
+		return h.collider.transform.root.GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(h.collider.transform.root.GetComponent(typeof( T )), h.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
 	}
 	#endregion
 
 	#region Camera
-	public static Vector3 ScreenPointToRay (this Camera camera, Vector2 position, float distance){
+	public static Vector3 ScreenPointToRay (this Camera camera, Vector2 p, float d){
 
-		return camera.ScreenPointToRay(position).GetPoint(distance);
+		return camera.ScreenPointToRay(p).GetPoint(d);
 	}
 	#endregion
 
@@ -256,9 +257,9 @@ public static class VariablesExtensions
 		}
 	}
 
-	public static void Add (this List<int> list, params int[] objects){
+	public static void Add (this List<int> a, params int[] b){
 		
-		list.AddRange(objects);
+		a.AddRange(b);
 	}
 	#endregion
 }

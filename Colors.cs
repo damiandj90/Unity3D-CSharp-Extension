@@ -6,22 +6,24 @@ using UnityEngine;
 public static class ColorExtensions
 {
 
-	//convert color to hex
+	#region Color To Hex String
 	public static string ToHex (this Color color){
 
 		return color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
 	}
+	#endregion
 
-	//convert string to color
-	public static Color ToColor (this string hex){
+	#region String To Color
+	public static Color ToColor (this string a){
 		
-		return ToColor32(hex);
+		return ToColor32(a);
 	}
 
-	public static Color32 ToColor32 (this string hex){
-		
-		return new Color32(byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber),
-		                   byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber),
-		                   byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), 255);
+	public static Color32 ToColor32 (this string a){
+
+		return new Color32(byte.Parse(a.Substring(0, 2), System.Globalization.NumberStyles.HexNumber),
+		                   byte.Parse(a.Substring(2, 2), System.Globalization.NumberStyles.HexNumber),
+		                   byte.Parse(a.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), 255);
 	}
+	#endregion
 }

@@ -122,35 +122,96 @@ static public class Log
 	}
 	#endregion
 
-	#region Chronometer
-	static Stopwatch stopWatch = new Stopwatch();
+	#region Timer
+	static Stopwatch timerWatch = new Stopwatch();
 	
 	public static void Start (){
 		
-		Reset();
-		stopWatch.Start();
+		timerWatch.Reset();
+		timerWatch.Start();
 	}
 	
 	public static void Continue (){
 		
-		stopWatch.Start();
+		timerWatch.Start();
 	}
 	
 	public static void Stop (){
 		
-		stopWatch.Stop();
-		Log.SYSTEM("" + stopWatch.Elapsed.TotalSeconds);
+		timerWatch.Stop();
+		Log.TIME("" + timerWatch.Elapsed.TotalSeconds);
 	}
 	
 	public static void Stop (string text){
 		
-		stopWatch.Stop();
-		Log.SYSTEM(text + ": " + stopWatch.Elapsed.TotalSeconds);
+		timerWatch.Stop();
+		Log.TIME(text + ": " + timerWatch.Elapsed.TotalSeconds);
 	}
-	
-	public static void Reset (){
+
+	static public void TIME (params object[] objects){
 		
-		stopWatch.Reset();
+		Write(0, Insert(objects, "TIMER"));
+	}
+	#endregion
+
+	#region Measure
+	static Stopwatch measureWatch = new Stopwatch();
+	static List<double> measures = new List<double>();
+
+	public static void Begin (){
+
+		measureWatch.Reset();
+		measureWatch.Start();
+	}
+
+	public static void Check (){
+
+		if ( measureWatch.IsRunning ){
+
+			measureWatch.Stop();
+			measures.Add(measureWatch.Elapsed.TotalMilliseconds);
+			measureWatch.Start();
+		}
+		else{
+
+			Log.ERROR("No log measure begin");
+		}
+	}
+
+	public static void End (){
+
+		if ( measureWatch.IsRunning ){
+
+			measureWatch.Stop();
+			measures.Add(measureWatch.Elapsed.TotalMilliseconds);
+			measureWatch.Reset();
+
+			string[] values = new string[measures.Count];
+
+			for ( int n = 0; n < values.Length; n++ ){
+
+				if ( n > 0 ){
+
+					values[n] = "+" + ( measures[n] - measures[n - 1] ).ToString("F4");
+				}
+				else{
+
+					values[n] = "+" + measures[n].ToString("F4");
+				}
+			}
+
+			Log.MEASURE(values);
+			measures.Clear();
+		}
+		else{
+
+			Log.ERROR("No log measure begin");
+		}
+	}
+
+	static public void MEASURE (params object[] objects){
+		
+		Write(0, Insert(objects, "MEASURE"));
 	}
 	#endregion
 
