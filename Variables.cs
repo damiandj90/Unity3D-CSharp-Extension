@@ -219,15 +219,36 @@ public static class VariablesExtensions
 	}
 
 	public static T GetComponentInParent<T> (this RaycastHit h){
-
+		
 		return h.collider.transform.parent.GetComponent(typeof( T )) != null ? 
 			( T ) System.Convert.ChangeType(h.collider.transform.parent.GetComponent(typeof( T )), h.collider.transform.parent.GetComponent(typeof( T )).GetType()) : default(T);
+	}
+
+	public static T GetComponentInParent<T> (this RaycastHit h, int a){
+		
+		return h.collider.transform.GetParent(a).GetComponent(typeof( T )) != null ? 
+			( T ) System.Convert.ChangeType(h.collider.transform.GetParent(a).GetComponent(typeof( T )), h.collider.transform.GetParent(a).GetComponent(typeof( T )).GetType()) : default(T);
 	}
 
 	public static T GetComponentInRoot<T> (this RaycastHit h){
 
 		return h.collider.transform.root.GetComponent(typeof( T )) != null ? 
 			( T ) System.Convert.ChangeType(h.collider.transform.root.GetComponent(typeof( T )), h.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
+	}
+	#endregion
+
+	#region Transform
+	public static Transform GetParent (this Transform t, int a){
+
+		for ( int n = 0; n < a; n++ ){
+
+			if ( t.parent ){
+
+				t = t.parent;
+			}
+		}
+
+		return t.parent;
 	}
 	#endregion
 

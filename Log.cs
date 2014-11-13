@@ -94,12 +94,12 @@ static public class Log
 	#endregion
 
 	#region Draw
-	static public void Draw (float x, float y, float width, float height){
+	static public void DRAW (float x, float y, float width, float height){
 
-		Draw(x, y, width, height, new Texture2D(10, 10, TextureFormat.Alpha8, false));
+		DRAW(x, y, width, height, new Texture2D(10, 10, TextureFormat.Alpha8, false));
 	}
 
-	static public void Draw (float x, float y, float width, float height, Texture2D texture){
+	static public void DRAW (float x, float y, float width, float height, Texture2D texture){
 		
 		GUI.DrawTexture(new Rect(x, y, width, height), texture);
 		
@@ -125,30 +125,35 @@ static public class Log
 	#region Timer
 	static Stopwatch timerWatch = new Stopwatch();
 	
-	public static void Start (){
+	public static void START (){
 		
 		timerWatch.Reset();
 		timerWatch.Start();
 	}
 	
-	public static void Continue (){
+	public static void CONTINUE (){
 		
 		timerWatch.Start();
 	}
+
+	public static void PAUSE (){
+
+		timerWatch.Stop();
+	}
 	
-	public static void Stop (){
+	public static void STOP (){
 		
 		timerWatch.Stop();
 		Log.TIME("" + timerWatch.Elapsed.TotalSeconds);
 	}
 	
-	public static void Stop (string text){
+	public static void STOP (string text){
 		
 		timerWatch.Stop();
 		Log.TIME(text + ": " + timerWatch.Elapsed.TotalSeconds);
 	}
 
-	static public void TIME (params object[] objects){
+	private static void TIME (params object[] objects){
 		
 		Write(0, Insert(objects, "TIMER"));
 	}
@@ -158,13 +163,13 @@ static public class Log
 	static Stopwatch measureWatch = new Stopwatch();
 	static List<double> measures = new List<double>();
 
-	public static void Begin (){
+	public static void BEGIN (){
 
 		measureWatch.Reset();
 		measureWatch.Start();
 	}
 
-	public static void Check (){
+	public static void CHECK (){
 
 		if ( measureWatch.IsRunning ){
 
@@ -178,7 +183,7 @@ static public class Log
 		}
 	}
 
-	public static void End (){
+	public static void END (){
 
 		if ( measureWatch.IsRunning ){
 
@@ -209,7 +214,7 @@ static public class Log
 		}
 	}
 
-	static public void MEASURE (params object[] objects){
+	private static void MEASURE (params object[] objects){
 		
 		Write(0, Insert(objects, "MEASURE"));
 	}

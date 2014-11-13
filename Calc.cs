@@ -48,14 +48,14 @@ public static class Calc
 		return Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
 	}
 	
-	//distance in float
-	public static float DistanceFloat (Vector3 v1, Vector3 v2){
+	//Fast distance in float
+	public static float DistanceFLOAT (Vector3 v1, Vector3 v2){
 
 		return ( float ) Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
 	}
 	
-	//distance round to int
-	public static int DistanceInt (Vector3 v1, Vector3 v2){
+	//Fast distance round to int
+	public static int DistanceINT (Vector3 v1, Vector3 v2){
 
 		return ( int ) Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
 	}
