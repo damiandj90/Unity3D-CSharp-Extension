@@ -24,40 +24,39 @@ public static class Calc
 		return int.Parse(a.ToString("F0"));
 	}
 
-	public static float Round (float a, int decimals){
+	public static float Round (float a, int dec){
 
-		return float.Parse(a.ToString("F" + decimals));
+		return float.Parse(a.ToString("F" + dec));
 	}
     #endregion
 	
     #region Distance
-
-	public static int Distance (int a1, int a2){
+	public static int Distance (int a, int b){
 		
-		return Absolute(a1 - a2);
+		return Absolute(a - b);
 	}
-	
-	public static float Distance (float a1, int a2){
+
+	public static float Distance (float a, int b){
 		
-		return Absolute(a1 - a2);
+		return Absolute(a - b);
 	}
 
-	//Fastest way to calculate distance from point to point
-	public static double Distance (Vector3 v1, Vector3 v2){
-	
-		return Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
+	//fastest way to calculate vector2 distance
+	public static float Distance (Vector2 a, Vector2 b){
+		
+		return Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ));
 	}
 	
-	//Fast distance in float
-	public static float DistanceFLOAT (Vector3 v1, Vector3 v2){
+	//fastest way to calculate vector3 distance
+	public static float Distance (Vector3 a, Vector3 b){
 
-		return ( float ) Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
+		return Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ) + ( a.z - b.z ) * ( a.z - b.z ));
 	}
 	
-	//Fast distance round to int
-	public static int DistanceINT (Vector3 v1, Vector3 v2){
+	//fastest way to calculate vector3 distance to int
+	public static int DistanceToInt (Vector3 a, Vector3 b){
 
-		return ( int ) Mathf.Sqrt(( v1.x - v2.x ) * ( v1.x - v2.x ) + ( v1.y - v2.y ) * ( v1.y - v2.y ) + ( v1.z - v2.z ) * ( v1.z - v2.z ));
+		return ( int ) Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ) + ( a.z - b.z ) * ( a.z - b.z ));
 	}
     #endregion
 
@@ -75,14 +74,21 @@ public static class Calc
 
 	#region Random
 	//get random element from array of objects
-	public static object Random (this object[] objects){
+	public static object Random (this object[] a){
 		
-		return objects.Length > 0 ? objects[UnityEngine.Random.Range(0, objects.Length)] : default(object);
+		return a.Length > 0 ? a[UnityEngine.Random.Range(0, a.Length)] : default(object);
 	}
 	
-	public static T Random<T> (this T[] objects){
+	public static T Random<T> (this T[] a){
 		
-		return objects.Length > 0 ? objects[UnityEngine.Random.Range(0, objects.Length)] : default(T);
+		return a.Length > 0 ? a[UnityEngine.Random.Range(0, a.Length)] : default(T);
+	}
+	#endregion
+
+	#region Linear
+	public static float LC (float value, float range){
+
+		return value <= range ? Absolute(( value - range )) / range : 0;
 	}
 	#endregion
 

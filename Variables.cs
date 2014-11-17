@@ -283,6 +283,34 @@ public static class VariablesExtensions
 		a.AddRange(b);
 	}
 	#endregion
+
+	#region GameObject
+	public static void AddComponents (this GameObject o, params System.Type[] types){
+		
+		if ( types != null ){
+			
+			foreach ( System.Type type in types ){
+				
+				o.AddComponent(type);
+			}
+		}
+	}
+	#endregion
+
+	#region MonoBehaviour
+	public static T AddComponent<T> (this MonoBehaviour mono){
+		
+		return ( T ) System.Convert.ChangeType(mono.gameObject.AddComponent(typeof( T )), typeof( T ));
+	}
+	
+	public static void AddComponents<T1, T2> (this MonoBehaviour mono, params System.Type[] types){
+		
+		foreach ( System.Type type in types ){
+			
+			mono.gameObject.AddComponent(type);
+		}
+	}
+	#endregion
 }
 
 #region Quaternion

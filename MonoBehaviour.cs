@@ -135,34 +135,11 @@ public class MonoBehaviour : UnityEngine.MonoBehaviour
 		return Equals(a, b) ? true : false;
 	}
 	#endregion
-}
 
-public static class MonoExtensions
-{
-
-	#region Components
-	public static T AddComponent<T> (this MonoBehaviour mono){
+	#region Properties
+	public static B GetProperty<A, B> (string name){
 		
-		return ( T ) System.Convert.ChangeType(mono.gameObject.AddComponent(typeof( T )), typeof( T ));
-	}
-
-	public static void AddComponents<T1, T2> (this MonoBehaviour mono, params System.Type[] types){
-
-		foreach ( System.Type type in types ){
-
-			mono.gameObject.AddComponent(type);
-		}
-	}
-
-	public static void AddComponents (this GameObject go, params System.Type[] types){
-
-		if ( types != null ){
-
-			foreach ( System.Type type in types ){
-				
-				go.AddComponent(type);
-			}
-		}
+		return ( B ) default(A).GetType().GetProperty(name).GetValue(default(A), null);
 	}
 	#endregion
 }
