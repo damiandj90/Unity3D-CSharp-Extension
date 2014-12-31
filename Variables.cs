@@ -66,6 +66,32 @@ public struct Matrix1x2
 }
 #endregion
 
+#region CString
+public class CString
+{
+	
+	private string value;
+	
+	public CString (){
+	}
+	
+	public CString (string a){
+		
+		value = a;
+	}
+	
+	public static implicit operator CString (string a){
+		
+		if ( a == null ){
+			
+			return null;
+		}
+		
+		return new CString(a);
+	}
+}
+#endregion
+
 public static class VariablesExtensions
 {
 
@@ -235,20 +261,10 @@ public static class VariablesExtensions
 		return h.collider.transform.root.GetComponent(typeof( T )) != null ? 
 			( T ) System.Convert.ChangeType(h.collider.transform.root.GetComponent(typeof( T )), h.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
 	}
-	#endregion
 
-	#region Transform
-	public static Transform GetParent (this Transform t, int a){
+	public static int Layer (this RaycastHit h){
 
-		for ( int n = 0; n < a; n++ ){
-
-			if ( t.parent ){
-
-				t = t.parent;
-			}
-		}
-
-		return t.parent;
+		return h.transform.gameObject.layer;
 	}
 	#endregion
 
@@ -297,6 +313,26 @@ public static class VariablesExtensions
 	}
 	#endregion
 
+	#region Transform
+	public static Transform GetParent (this Transform t, int a){
+		
+		for ( int n = 0; n < a; n++ ){
+			
+			if ( t.parent ){
+				
+				t = t.parent;
+			}
+		}
+		
+		return t.parent;
+	}
+
+	public static void SetActive (this Transform t, bool b){
+
+		t.gameObject.SetActive(b);
+	}
+	#endregion
+
 	#region MonoBehaviour
 	public static T AddComponent<T> (this MonoBehaviour mono){
 		
@@ -309,6 +345,13 @@ public static class VariablesExtensions
 			
 			mono.gameObject.AddComponent(type);
 		}
+	}
+	#endregion
+
+	#region AnimationCurve
+	public static float Unit (this AnimationCurve anim, float a){
+
+		return Mathf.Clamp(anim.Evaluate(a), 0, 1);
 	}
 	#endregion
 }
