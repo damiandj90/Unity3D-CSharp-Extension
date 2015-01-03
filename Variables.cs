@@ -237,6 +237,18 @@ public static class VariablesExtensions
 
 	#endregion
 
+	#region Rect
+	public static bool Mouse (this Rect r){
+
+		return r.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y));
+	}
+
+	public static bool Mouse (this Rect r, float shiftX, float shiftY){
+		
+		return r.Contains(new Vector2(Input.mousePosition.x + shiftX, Screen.height - Input.mousePosition.y + shiftY));
+	}
+	#endregion
+
 	#region Hit
 	public static T GetComponent<T> (this RaycastHit h) where T : class{
 
