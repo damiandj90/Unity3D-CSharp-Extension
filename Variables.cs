@@ -2,8 +2,11 @@
 // You are free to use this C# file in your project
 
 using UnityEngine;
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Linq.Expressions;
 
 #region List
 public class List<T> :  System.Collections.Generic.List<T>
@@ -364,6 +367,18 @@ public static class VariablesExtensions
 	public static float Unit (this AnimationCurve anim, float a){
 
 		return Mathf.Clamp(anim.Evaluate(a), 0, 1);
+	}
+	#endregion
+
+	#region SerializeInfo
+	public static T Get<T> (this SerializationInfo s, string a){
+
+		return ( T ) s.GetValue(a, typeof( T ));
+	}
+
+	public static void Set (this SerializationInfo s, string a, object o){
+
+		s.AddValue(a, o);
 	}
 	#endregion
 }

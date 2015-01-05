@@ -3,12 +3,16 @@
 
 using UnityEngine;
 using System.Diagnostics;
+using System.Linq;
 
 static public class Log
 {
 
 	private static Transform LogDirectory;
 	private static int counter = 0;
+
+	//Temporary log text saved
+	private static string[] Temp = Enumerable.Repeat("", 10).ToArray();
 
 	#region Debug
 	//simple game messages
@@ -300,6 +304,14 @@ static public class Log
 				UnityEngine.Debug.LogError(text);
 				break;
 		}
+
+		//shift current temp log saved
+		for ( int n = Temp.Length - 1; n > 0; n-- ){
+
+			Temp[n] = Temp[n - 1];
+		}
+
+		Temp[0] = text;
 	}
 	#endregion
 }
