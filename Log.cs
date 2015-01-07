@@ -8,11 +8,9 @@ using System.Linq;
 static public class Log
 {
 
-	private static Transform LogDirectory;
 	private static int counter = 0;
-
-	//Temporary log text saved
-	private static string[] Temp = Enumerable.Repeat("", 10).ToArray();
+	public static string[] Temp = Enumerable.Repeat("", 10).ToArray();
+	private static Transform LogDirectory;
 
 	#region Debug
 	//simple game messages

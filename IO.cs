@@ -32,15 +32,14 @@ public static class IO
 {
 
 	#region Save
-	public static bool Save <T> (string path, string name, string ext) where T : new(){
-		
-		T Data = new T();
+	public static bool Save <T> (T data, string path, string name, string ext) where T : new(){
+
 		Stream stream = File.OpenWrite(path + name + ext);
 		BinaryFormatter bf = new BinaryFormatter();
 		bf.Binder = new VersionDeserializationBinder();
 		bf.Serialize(stream, typeof( T ));
 		stream.Close();
-		return Data != null ? true : false;
+		return data != null ? true : false;
 	}
 	#endregion
 
@@ -53,6 +52,54 @@ public static class IO
 		T Data = ( T ) bformatter.Deserialize(stream);
 		stream.Close();
 		return Data != null ? true : false;
+	}
+	#endregion
+
+	#region Upload
+	public static byte[] Upload <T> (T data, string path){
+		
+		Stream stream = File.Open(path, FileMode.Create);
+		
+		BinaryFormatter bformatter = new BinaryFormatter();
+		bformatter.Binder = new VersionDeserializationBinder(); 
+		bformatter.Serialize(stream, data);
+		stream.Close();
+		
+		byte[] bytes = System.IO.File.ReadAllBytes(path);
+		System.IO.File.Delete(path);
+		
+		return bytes;
+	}
+	#endregion
+
+	#region Download
+	public static void Download<T> (byte[] bytes, T data){
+		
+	}
+	#endregion
+
+	#region Move
+	public static void Move <T> (string path, T data){
+		
+		Stream stream = File.Open(path, FileMode.Create);
+		BinaryFormatter bformatter = new BinaryFormatter();
+		bformatter.Binder = new VersionDeserializationBinder(); 
+		bformatter.Serialize(stream, data);
+		stream.Close();
+	}
+	#endregion
+
+	#region FTP Upload
+	public static void FTPUpload (){
+
+
+	}
+	#endregion
+
+	#region FTP Download
+	public static void FTPDownload (){
+
+
 	}
 	#endregion
 }
