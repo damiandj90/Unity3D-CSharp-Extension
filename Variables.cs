@@ -384,10 +384,10 @@ public static class VariablesExtensions
 }
 
 #region Quaternion
-public static class QUATERNION
+public static class XQuaternion
 {
 	
-	public static Quaternion LookPlayer (Vector3 right, Vector3 normal, float rotation){
+	public static Quaternion Look (Vector3 right, Vector3 normal, float rotation){
 		
 		return Quaternion.LookRotation(right - ( Vector3.Dot(right, normal) ) * normal, normal) * Quaternion.Euler(0, rotation, 0);
 	}

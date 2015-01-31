@@ -4,7 +4,7 @@
 using UnityEngine;
 using System;
 
-public class XUI : UnityEngine.GUI
+public class XUI
 {
 	
 	#region Label
@@ -20,22 +20,22 @@ public class XUI : UnityEngine.GUI
 	#endregion
 	
 	#region Button
-	public static bool Button (int x, int y, int width, int height, string text){
+	public static bool Button (float x, float y, float width, float height, string text){
 		
 		return GUI.Button(new Rect(x, y, width, height), text);
 	}
 	
-	public static bool Button (int x, int y, int width, int height, string text, string style){
+	public static bool Button (float x, float y, float width, float height, string text, string style){
 		
 		return GUI.Button(new Rect(x, y, width, height), text, style);
 	}
 	
-	public static bool Button (int x, int y, int width, int height, GUIContent content){
+	public static bool Button (float x, float y, float width, float height, GUIContent content){
 		
 		return GUI.Button(new Rect(x, y, width, height), content);
 	}
 	
-	public static bool Button (int x, int y, int width, int height, GUIContent content, string style){
+	public static bool Button (float x, float y, float width, float height, GUIContent content, string style){
 		
 		return GUI.Button(new Rect(x, y, width, height), content, style);
 	}

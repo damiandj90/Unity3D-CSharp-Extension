@@ -103,4 +103,57 @@ public static class Calc
 		return a - b;
 	}
 	#endregion
+
+	#region Switch
+	public static int Switch (float value, params float[] values){
+
+		for ( int n = 0; n < values.Length; n++ ){
+
+			if ( n + 1 < values.Length ){
+
+				if ( value >= values[n] && value < values[n + 1] ){
+
+					return n;
+				}
+			}
+			else{
+
+				if ( value > values[n] ){
+
+					return n;
+				}
+			}
+		}
+
+		return -1;
+	}
+	#endregion
+
+	#region Plus
+	public static void Plus (ref int value, int i, int max){
+
+		if ( value + i <= max ){
+			
+			value += i;
+		}
+		else{
+			
+			value = max;
+		}
+	}
+	#endregion
+
+	#region Minus
+	public static void Minus (ref int value, int i, int min){
+		
+		if ( value - i >= min ){
+			
+			value -= i;
+		}
+		else{
+			
+			value = min;
+		}
+	}
+	#endregion
 }
