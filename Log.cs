@@ -10,217 +10,235 @@ static public class Log
 	
 	private static int counter = 0;
 	private static Transform LogDirectory;
-	
-	public static string[] TempComplete = Enumerable.Repeat("", 10).ToArray();
-	public static string[] Temp = Enumerable.Repeat("", 10).ToArray();
+	public static string[] LogData = Enumerable.Repeat ("", 10).ToArray ();
 	
 	#region Debug
 	//simple game messages
 	static public void GAME (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "GAME"));
+		Write (LogType.NONE, Insert (objects, "GAME"));
 	}
 	
 	//simple system messages
 	static public void SYSTEM (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "SYSTEM"));
+		Write (LogType.NONE, Insert (objects, "SYSTEM"));
 	}
 	
 	//network messages
 	static public void NETWORK (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "NETWORK"));
+		Write (LogType.NONE, Insert (objects, "NETWORK"));
 	}
 	
 	//important engine messages
 	static public void ENGINE (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "ENGINE"));
+		Write (LogType.NONE, Insert (objects, "ENGINE"));
 	}
 	
 	//error messages
 	static public void ERROR (params object[] objects){
 		
-		Write(LogType.ERROR, Insert(objects, "ERROR"));
+		Write (LogType.ERROR, Insert (objects, "ERROR"));
 	}
 	
 	//warning messages
 	static public void WARNING (params object[] objects){
 		
-		Write(LogType.WARNING, Insert(objects, "WARNING"));
+		Write (LogType.WARNING, Insert (objects, "WARNING"));
 	}
 	
 	//editor scripts messages
 	static public void EDITOR (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "EDITOR"));
+		Write (LogType.NONE, Insert (objects, "EDITOR"));
 	}
 	
 	//launcher messages
 	static public void LAUNCHER (params object[] objects){
 		
-		Write(LogType.NONE, Insert(objects, "LAUNCHER"));
+		Write (LogType.NONE, Insert (objects, "LAUNCHER"));
 	}
 	
 	//to test during coding
 	static public void TEST (params object[] objects){
 		
-		Write(LogType.WARNING, Insert(objects, "TEST"));
+		Write (LogType.WARNING, Insert (objects, "TEST"));
 	}
 	
 	static public void COUNTER (params object[] objects){
 		
-		Write(LogType.WARNING, Insert(objects, "COUNTER", ++counter));
+		Write (LogType.WARNING, Insert (objects, "COUNTER", ++counter));
 	}
 	
 	static public void A (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "A"));
+		Write (LogType.WARNING, Insert (objects, "A"));
 	}
 	static public void B (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "B"));
+		Write (LogType.WARNING, Insert (objects, "B"));
 	}
 	static public void C (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "C"));
+		Write (LogType.WARNING, Insert (objects, "C"));
 	}
 	static public void D (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "D"));
+		Write (LogType.WARNING, Insert (objects, "D"));
 	}
 	static public void E (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "E"));
+		Write (LogType.WARNING, Insert (objects, "E"));
 	}
 	static public void F (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "F"));
+		Write (LogType.WARNING, Insert (objects, "F"));
 	}
 	static public void G (params object[] objects){
-		Write(LogType.WARNING, Insert(objects, "G"));
+		Write (LogType.WARNING, Insert (objects, "G"));
 	}
 	#endregion
 	
 	#region Draw
 	static public void DRAW (float x, float y, float width, float height){
 		
-		DRAW(x, y, width, height, new Texture2D(10, 10, TextureFormat.Alpha8, false));
+		DRAW (x, y, width, height, new Texture2D (10, 10, TextureFormat.Alpha8, false));
 	}
 	
 	static public void DRAW (float x, float y, float width, float height, Texture2D texture){
 		
-		GUI.DrawTexture(new Rect(x, y, width, height), texture);
+		GUI.DrawTexture (new Rect (x, y, width, height), texture);
 		
-		Write(0, Insert(new object[]{x, y, width, height}, "DRAW"));
+		Write (0, Insert (new object[]{x, y, width, height}, "DRAW"));
 	}
 	#endregion
 	
 	#region Point
-	static public void POINT (Vector3 position){
-		
-		if ( !LogDirectory ){
+	static public void POINT (Vector3 pos){
+
+		//create log directory if needed
+		if (!LogDirectory) {
 			
-			LogDirectory = MonoBehaviour.Create<Transform>("Log");
+			LogDirectory = MonoBehaviour.Create<Transform> ("_Log");
 		}
 		
-		GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		go.name = "Point (" + position + ")";
+		GameObject go = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		go.name = "Point (" + pos + ")";
 		go.transform.parent = LogDirectory;
-		go.transform.position = position;
+		go.transform.position = pos;
+		go.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+	}
+	#endregion
+
+	#region Ray
+	static public void RAY (Vector3 pos1, Vector3 pos2){
+
+		//create log directory if needed
+		if (!LogDirectory) {
+			
+			LogDirectory = MonoBehaviour.Create<Transform> ("_Log");
+		}
+		
+		GameObject go = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		go.name = "Ray (" + pos1 + "," + pos2 + ")";
+		go.transform.parent = LogDirectory;
+		go.transform.position = pos1 + (pos2 - pos1).magnitude / 2 * (pos2 - pos1).normalized;
+		go.transform.localScale = new Vector3 (0.05f, 0.05f, (pos2 - pos1).magnitude);
+		go.transform.LookAt (pos2);
 	}
 	#endregion
 	
 	#region Timer
-	static Stopwatch timerWatch = new Stopwatch();
+	static Stopwatch timerWatch = new Stopwatch ();
 	
 	public static void START (){
 		
-		timerWatch.Reset();
-		timerWatch.Start();
+		timerWatch.Reset ();
+		timerWatch.Start ();
 	}
 	
 	public static void CONTINUE (){
 		
-		timerWatch.Start();
+		timerWatch.Start ();
 	}
 	
 	public static void PAUSE (){
 		
-		timerWatch.Stop();
+		timerWatch.Stop ();
 	}
 	
 	public static void STOP (){
 		
-		timerWatch.Stop();
-		Log.TIME("" + timerWatch.Elapsed.TotalSeconds);
+		timerWatch.Stop ();
+		Log.TIME ("" + timerWatch.Elapsed.TotalSeconds);
 	}
 	
 	public static void STOP (string text){
 		
-		timerWatch.Stop();
-		Log.TIME(text + ": " + timerWatch.Elapsed.TotalSeconds);
+		timerWatch.Stop ();
+		Log.TIME (text + ": " + timerWatch.Elapsed.TotalSeconds);
 	}
 	
 	private static void TIME (params object[] objects){
 		
-		Write(0, Insert(objects, "TIMER"));
+		Write (0, Insert (objects, "TIMER"));
 	}
 	#endregion
 	
 	#region Measure
-	static Stopwatch measureWatch = new Stopwatch();
-	static List<double> measures = new List<double>();
+	static Stopwatch measureWatch = new Stopwatch ();
+	static List<double> measures = new List<double> ();
 	
 	public static void BEGIN (){
 		
-		measureWatch.Reset();
-		measureWatch.Start();
+		measureWatch.Reset ();
+		measureWatch.Start ();
 	}
 	
 	public static void CHECK (){
 		
-		if ( measureWatch.IsRunning ){
+		if (measureWatch.IsRunning) {
 			
-			measureWatch.Stop();
-			measures.Add(measureWatch.Elapsed.TotalMilliseconds);
-			measureWatch.Start();
+			measureWatch.Stop ();
+			measures.Add (measureWatch.Elapsed.TotalMilliseconds);
+			measureWatch.Start ();
 		}
-		else{
+		else {
 			
-			Log.ERROR("No log measure begin");
+			Log.ERROR ("No log measure begin");
 		}
 	}
 	
 	public static void END (){
 		
-		if ( measureWatch.IsRunning ){
+		if (measureWatch.IsRunning) {
 			
-			measureWatch.Stop();
-			measures.Add(measureWatch.Elapsed.TotalMilliseconds);
-			measureWatch.Reset();
+			measureWatch.Stop ();
+			measures.Add (measureWatch.Elapsed.TotalMilliseconds);
+			measureWatch.Reset ();
 			
 			string[] values = new string[measures.Count];
 			
-			for ( int n = 0; n < values.Length; n++ ){
+			for (int n = 0; n < values.Length; n++) {
 				
-				if ( n > 0 ){
+				if (n > 0) {
 					
-					values[n] = "+" + ( measures[n] - measures[n - 1] ).ToString("F4");
+					values [n] = "+" + (measures [n] - measures [n - 1]).ToString ("F4");
 				}
-				else{
+				else {
 					
-					values[n] = "+" + measures[n].ToString("F4");
+					values [n] = "+" + measures [n].ToString ("F4");
 				}
 			}
 			
-			Log.MEASURE(values);
-			measures.Clear();
+			Log.MEASURE (values);
+			measures.Clear ();
 		}
-		else{
+		else {
 			
-			Log.ERROR("No log measure begin");
+			Log.ERROR ("No log measure begin");
 		}
 	}
 	
 	private static void MEASURE (params object[] objects){
 		
-		Write(0, Insert(objects, "MEASURE"));
+		Write (0, Insert (objects, "MEASURE"));
 	}
 	#endregion
 	
@@ -229,24 +247,24 @@ static public class Log
 		
 		object[] newObjects = null;
 		
-		if ( objects != null ){
+		if (objects != null) {
 			
 			newObjects = new object[objects.Length + moreObjects.Length];
 			
 			int n1 = 0;
 			int n2 = 0;
 			
-			for ( n1 = 0; n1 < moreObjects.Length; n1++ ){
+			for (n1 = 0; n1 < moreObjects.Length; n1++) {
 				
-				newObjects[n1] = moreObjects[n1];
+				newObjects [n1] = moreObjects [n1];
 			}
 			
-			for ( n2 = 0; n2 < objects.Length; n2++ ){
+			for (n2 = 0; n2 < objects.Length; n2++) {
 				
-				newObjects[n1 + n2] = objects[n2];
+				newObjects [n1 + n2] = objects [n2];
 			}
 		}
-		else{
+		else {
 			
 			newObjects = moreObjects;
 		}
@@ -260,58 +278,58 @@ static public class Log
 		
 		string text = "";
 		
-		for ( int n = 0; n < objects.Length; n++ ){
+		for (int n = 0; n < objects.Length; n++) {
 			
-			if ( objects.Length > n + 1 ){
+			if (objects.Length > n + 1) {
 				
-				if ( objects[n] != null ){
+				if (objects [n] != null) {
 					
-					text += objects[n] + " | ";
+					text += objects [n] + " | ";
 				}
-				else{
+				else {
 					
 					text += "Null |";
 				}
 			}
-			else{
+			else {
 				
-				if ( objects[n] != null ){
+				if (objects [n] != null) {
 					
-					text += objects[n].ToString();
+					text += objects [n].ToString ();
 				}
-				else{
+				else {
 					
 					text += "Null";
 				}
 			}
 		}
 		
-		switch ( type ){
+		switch (type) {
 			
 			case LogType.NONE:
 			default:
 				
-				UnityEngine.Debug.Log(text);
+				UnityEngine.Debug.Log (text);
 				break;
 				
 			case LogType.WARNING:
 				
-				UnityEngine.Debug.LogWarning(text);
+				UnityEngine.Debug.LogWarning (text);
 				break;
 				
 			case LogType.ERROR:
 				
-				UnityEngine.Debug.LogError(text);
+				UnityEngine.Debug.LogError (text);
 				break;
 		}
 		
 		//shift current temp log saved
-		for ( int n = Temp.Length - 1; n > 0; n-- ){
+		for (int n = LogData.Length - 1; n > 0; n--) {
 			
-			Temp[n] = Temp[n - 1];
+			LogData [n] = LogData [n - 1];
 		}
 		
-		Temp[0] = text;
+		LogData [0] = text;
 	}
 	#endregion
 	

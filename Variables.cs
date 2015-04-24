@@ -12,14 +12,16 @@ using System.Linq.Expressions;
 public class List<T> :  System.Collections.Generic.List<T>
 {
 	
-	public List (params IEnumerable<T>[] a){
+	public List (params IEnumerable<T>[] a)
+	{
 		
-		this.AddRange(a);
+		this.AddRange (a);
 	}
 	
-	public List (params T[] a){
+	public List (params T[] a)
+	{
 		
-		this.AddRange(a);
+		this.AddRange (a);
 	}
 }
 #endregion
@@ -29,14 +31,16 @@ public struct IntVector3
 {
 	public int x, y, z;
 	
-	public IntVector3 (int x, int z){
+	public IntVector3 (int x, int z)
+	{
 		
 		this.x = x;
 		this.y = 0;
 		this.z = z;
 	}
 	
-	public IntVector3 (int x, int y, int z){
+	public IntVector3 (int x, int y, int z)
+	{
 		
 		this.x = x;
 		this.y = y;
@@ -53,7 +57,8 @@ public struct IntVector3
 public struct Matrix1x2
 {
 	public int x, y;
-	public Matrix1x2 (int X, int Y){
+	public Matrix1x2 (int X, int Y)
+	{
 		
 		x = X;
 		y = Y;
@@ -65,7 +70,7 @@ public struct Matrix1x2
 		y = Y;
 	}
 	
-	public static Matrix1x2 Zero = new Matrix1x2(0, 0);
+	public static Matrix1x2 Zero = new Matrix1x2 (0, 0);
 }
 #endregion
 
@@ -75,22 +80,24 @@ public class CString
 	
 	private string value;
 	
-	public CString (){
+	public CString ()
+	{
 	}
 	
-	public CString (string a){
+	public CString (string a)
+	{
 		
 		value = a;
 	}
 	
 	public static implicit operator CString (string a){
 		
-		if ( a == null ){
+		if (a == null) {
 			
 			return null;
 		}
 		
-		return new CString(a);
+		return new CString (a);
 	}
 }
 #endregion
@@ -101,14 +108,14 @@ public static class VariablesExtensions
 	#region Bool
 	public static bool And (this bool a, params bool[] b){
 
-		if ( !a ){
+		if (!a) {
 
 			return false;
 		}
 
-		for ( int n = 0; n < b.Length; n++ ){
+		for (int n = 0; n < b.Length; n++) {
 			
-			if ( b[n] == false ){
+			if (b [n] == false) {
 				
 				return false;
 			}
@@ -119,14 +126,14 @@ public static class VariablesExtensions
 
 	public static bool Or (this bool a, params bool[] b){
 
-		if ( a ){
+		if (a) {
 
 			return true;
 		}
 
-		for ( int n = 0; n < b.Length; n++ ){
+		for (int n = 0; n < b.Length; n++) {
 			
-			if ( b[n] == true ){
+			if (b [n] == true) {
 				
 				return true;
 			}
@@ -139,9 +146,9 @@ public static class VariablesExtensions
 	#region Int
 	public static int Index (this string a, string[] b){
 		
-		for ( int n = 1; n < b.Length; n++ ){
+		for (int n = 1; n < b.Length; n++) {
 
-			if ( a == b[n] ){
+			if (a == b [n]) {
 
 				return n;
 			}
@@ -152,9 +159,9 @@ public static class VariablesExtensions
 
 	public static int Index (this int value, int[] values){
 		
-		for ( int n = 1; n < values.Length; n++ ){
+		for (int n = 1; n < values.Length; n++) {
 			
-			if ( value == values[n] ){
+			if (value == values [n]) {
 				
 				return n;
 			}
@@ -165,31 +172,31 @@ public static class VariablesExtensions
 
 	public static int Nearest (this int value, int[] values){
 		
-		int range = Calc.Distance(value, values[0]);
+		int range = Calc.Distance (value, values [0]);
 		int position = 0;
 		
-		for ( int n = 1; n < values.Length; n++ ){
+		for (int n = 1; n < values.Length; n++) {
 			
-			if ( Calc.Distance(value, values[n]) < range ){
+			if (Calc.Distance (value, values [n]) < range) {
 				
-				range = Calc.Distance(value, values[n]);
+				range = Calc.Distance (value, values [n]);
 				position = n;
 			}
 		}
 
-		return values[position];
+		return values [position];
 	}
 
 	public static int NearestIndex (this int value, int[] values){
 		
-		int range = Calc.Distance(value, values[0]);
+		int range = Calc.Distance (value, values [0]);
 		int position = 0;
 		
-		for ( int n = 1; n < values.Length; n++ ){
+		for (int n = 1; n < values.Length; n++) {
 			
-			if ( Calc.Distance(value, values[n]) < range ){
+			if (Calc.Distance (value, values [n]) < range) {
 				
-				range = Calc.Distance(value, values[n]);
+				range = Calc.Distance (value, values [n]);
 				position = n;
 			}
 		}
@@ -202,23 +209,23 @@ public static class VariablesExtensions
 
 	public static string ToString (this float v, string f, bool showInteger){
 
-		if ( showInteger ){
+		if (showInteger) {
 
-			if ( float.Parse(v.ToString(f)) % 1 == 0 ){
+			if (float.Parse (v.ToString (f)) % 1 == 0) {
 
-				return v.ToString("F0");
+				return v.ToString ("F0");
 			}
 		}
 
-		return v.ToString(f);
+		return v.ToString (f);
 	}
 
 	//replace with chars
 	public static string ReplaceChars (this string text, string chars, string replace){
 		
-		for ( int n = 0; n < chars.Length; n++ ){
+		for (int n = 0; n < chars.Length; n++) {
 			
-			text = text.Replace(chars.Substring(n, 1), replace);
+			text = text.Replace (chars.Substring (n, 1), replace);
 		}
 		
 		return text;
@@ -228,14 +235,14 @@ public static class VariablesExtensions
 	#region Vector3
 	public static Vector3 Add (this Vector3 v, float a){
 		
-		return new Vector3(v.x + a, v.y + a, v.z + a);
+		return new Vector3 (v.x + a, v.y + a, v.z + a);
 	}
 	#endregion
 
 	#region InVector3
 	public static IntVector3 ToIntVector3 (this Vector3 v){
 
-		return new IntVector3(( int ) v.x, ( int ) v.y, ( int ) v.z);
+		return new IntVector3 ((int)v.x, (int)v.y, (int)v.z);
 	}
 
 	#endregion
@@ -243,38 +250,38 @@ public static class VariablesExtensions
 	#region Rect
 	public static bool Mouse (this Rect r){
 
-		return r.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y));
+		return r.Contains (new Vector2 (Input.mousePosition.x, Screen.height - Input.mousePosition.y));
 	}
 
 	public static bool Mouse (this Rect r, float shiftX, float shiftY){
 		
-		return r.Contains(new Vector2(Input.mousePosition.x + shiftX, Screen.height - Input.mousePosition.y + shiftY));
+		return r.Contains (new Vector2 (Input.mousePosition.x + shiftX, Screen.height - Input.mousePosition.y + shiftY));
 	}
 	#endregion
 
 	#region Hit
 	public static T GetComponent<T> (this RaycastHit h) where T : class{
 
-		return h.collider.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(h.collider.GetComponent(typeof( T )), h.collider.GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.GetComponent (typeof(T)) != null ? 
+			(T)System.Convert.ChangeType (h.collider.GetComponent (typeof(T)), h.collider.GetComponent (typeof(T)).GetType ()) : default(T);
 	}
 
 	public static T GetComponentInParent<T> (this RaycastHit h){
 		
-		return h.collider.transform.parent.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(h.collider.transform.parent.GetComponent(typeof( T )), h.collider.transform.parent.GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.transform.parent.GetComponent (typeof(T)) != null ? 
+			(T)System.Convert.ChangeType (h.collider.transform.parent.GetComponent (typeof(T)), h.collider.transform.parent.GetComponent (typeof(T)).GetType ()) : default(T);
 	}
 
 	public static T GetComponentInParent<T> (this RaycastHit h, int a){
 		
-		return h.collider.transform.GetParent(a).GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(h.collider.transform.GetParent(a).GetComponent(typeof( T )), h.collider.transform.GetParent(a).GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.transform.GetParent (a).GetComponent (typeof(T)) != null ? 
+			(T)System.Convert.ChangeType (h.collider.transform.GetParent (a).GetComponent (typeof(T)), h.collider.transform.GetParent (a).GetComponent (typeof(T)).GetType ()) : default(T);
 	}
 
 	public static T GetComponentInRoot<T> (this RaycastHit h){
 
-		return h.collider.transform.root.GetComponent(typeof( T )) != null ? 
-			( T ) System.Convert.ChangeType(h.collider.transform.root.GetComponent(typeof( T )), h.collider.transform.root.GetComponent(typeof( T )).GetType()) : default(T);
+		return h.collider.transform.root.GetComponent (typeof(T)) != null ? 
+			(T)System.Convert.ChangeType (h.collider.transform.root.GetComponent (typeof(T)), h.collider.transform.root.GetComponent (typeof(T)).GetType ()) : default(T);
 	}
 
 	public static int Layer (this RaycastHit h){
@@ -286,7 +293,7 @@ public static class VariablesExtensions
 	#region Camera
 	public static Vector3 ScreenPointToRay (this Camera camera, Vector2 p, float d){
 
-		return camera.ScreenPointToRay(p).GetPoint(d);
+		return camera.ScreenPointToRay (p).GetPoint (d);
 	}
 	#endregion
 
@@ -295,34 +302,34 @@ public static class VariablesExtensions
 	//Add list to list if there are elements
 	public static void AddSafe <T> (this List<List<T>> a, List<T> b){
 
-		if ( b.Count > 0 ){
+		if (b.Count > 0) {
 
-			a.Add(b);
+			a.Add (b);
 		}
 	}
 
 	public static void AddRange <T> (this List<T> a, params IEnumerable<T>[] b){
 
-		for ( int n = 0; n < b.Length; n++ ){
+		for (int n = 0; n < b.Length; n++) {
 				
-			a.AddRange(b[n]);
+			a.AddRange (b [n]);
 		}
 	}
 
 	public static void Add (this List<int> a, params int[] b){
 		
-		a.AddRange(b);
+		a.AddRange (b);
 	}
 	#endregion
 
 	#region GameObject
 	public static void AddComponents (this GameObject o, params System.Type[] types){
 		
-		if ( types != null ){
+		if (types != null) {
 			
-			foreach ( System.Type type in types ){
+			foreach (System.Type type in types) {
 				
-				o.AddComponent(type);
+				o.AddComponent (type);
 			}
 		}
 	}
@@ -331,9 +338,9 @@ public static class VariablesExtensions
 	#region Transform
 	public static Transform GetParent (this Transform t, int a){
 		
-		for ( int n = 0; n < a; n++ ){
+		for (int n = 0; n < a; n++) {
 			
-			if ( t.parent ){
+			if (t.parent) {
 				
 				t = t.parent;
 			}
@@ -344,21 +351,35 @@ public static class VariablesExtensions
 
 	public static void SetActive (this Transform t, bool b){
 
-		t.gameObject.SetActive(b);
+		t.gameObject.SetActive (b);
+	}
+	#endregion
+
+	#region Transform[]
+	public static Transform GetNearest (this Transform[] t, Transform p){
+		
+		//calculate nearest transform
+		return t.OrderBy (x => Calc.Distance (p.position, x.position)).ToArray () [0];
+	}
+
+	public static Transform GetFarthest (this Transform[] t, Transform p){
+
+		//calculate farthest transform
+		return t.OrderByDescending (x => Calc.Distance (p.position, x.position)).ToArray () [0];
 	}
 	#endregion
 
 	#region MonoBehaviour
 	public static T AddComponent<T> (this MonoBehaviour mono){
 		
-		return ( T ) System.Convert.ChangeType(mono.gameObject.AddComponent(typeof( T )), typeof( T ));
+		return (T)System.Convert.ChangeType (mono.gameObject.AddComponent (typeof(T)), typeof(T));
 	}
 	
 	public static void AddComponents<T1, T2> (this MonoBehaviour mono, params System.Type[] types){
 		
-		foreach ( System.Type type in types ){
+		foreach (System.Type type in types) {
 			
-			mono.gameObject.AddComponent(type);
+			mono.gameObject.AddComponent (type);
 		}
 	}
 	#endregion
@@ -366,19 +387,31 @@ public static class VariablesExtensions
 	#region AnimationCurve
 	public static float Unit (this AnimationCurve anim, float a){
 
-		return Mathf.Clamp(anim.Evaluate(a), 0, 1);
+		return Mathf.Clamp (anim.Evaluate (a), 0, 1);
 	}
 	#endregion
 
 	#region SerializeInfo
 	public static T Get<T> (this SerializationInfo s, string a){
 
-		return ( T ) s.GetValue(a, typeof( T ));
+		return (T)s.GetValue (a, typeof(T));
 	}
 
 	public static void Set (this SerializationInfo s, string a, object o){
 
-		s.AddValue(a, o);
+		s.AddValue (a, o);
+	}
+	#endregion
+
+	#region Get Type Name
+	public static string GetTypeName (this MonoBehaviour t){
+		
+		return t.GetType ().Name;
+	}
+	
+	public static string GetTypeName (this GameObject t){
+		
+		return t.GetComponent<MonoBehaviour> () ? t.GetComponent<MonoBehaviour> ().GetType ().Name : Deriva.Type.None;
 	}
 	#endregion
 }
@@ -389,7 +422,7 @@ public static class XQuaternion
 	
 	public static Quaternion Look (Vector3 right, Vector3 normal, float rotation){
 		
-		return Quaternion.LookRotation(right - ( Vector3.Dot(right, normal) ) * normal, normal) * Quaternion.Euler(0, rotation, 0);
+		return Quaternion.LookRotation (right - (Vector3.Dot (right, normal)) * normal, normal) * Quaternion.Euler (0, rotation, 0);
 	}
 }
 #endregion

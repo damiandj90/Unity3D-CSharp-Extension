@@ -21,42 +21,42 @@ public static class Calc
     #region Round
 	public static int Round (float a){
         
-		return int.Parse(a.ToString("F0"));
+		return int.Parse (a.ToString ("F0"));
 	}
 
 	public static float Round (float a, int dec){
 
-		return float.Parse(a.ToString("F" + dec));
+		return float.Parse (a.ToString ("F" + dec));
 	}
     #endregion
 	
     #region Distance
 	public static int Distance (int a, int b){
 		
-		return Absolute(a - b);
+		return Absolute (a - b);
 	}
 
 	public static float Distance (float a, int b){
 		
-		return Absolute(a - b);
+		return Absolute (a - b);
 	}
 
 	//fastest way to calculate vector2 distance
 	public static float Distance (Vector2 a, Vector2 b){
 		
-		return Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ));
+		return Mathf.Sqrt ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 	}
 	
 	//fastest way to calculate vector3 distance
 	public static float Distance (Vector3 a, Vector3 b){
 
-		return Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ) + ( a.z - b.z ) * ( a.z - b.z ));
+		return Mathf.Sqrt ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
 	}
 	
 	//fastest way to calculate vector3 distance to int
 	public static int DistanceToInt (Vector3 a, Vector3 b){
 
-		return ( int ) Mathf.Sqrt(( a.x - b.x ) * ( a.x - b.x ) + ( a.y - b.y ) * ( a.y - b.y ) + ( a.z - b.z ) * ( a.z - b.z ));
+		return (int)Mathf.Sqrt ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
 	}
     #endregion
 
@@ -76,26 +76,31 @@ public static class Calc
 	//get random element from array of objects
 	public static object Random (this object[] a){
 		
-		return a.Length > 0 ? a[UnityEngine.Random.Range(0, a.Length)] : default(object);
+		return a.Length > 0 ? a [UnityEngine.Random.Range (0, a.Length)] : default(object);
 	}
 	
 	public static T Random<T> (this T[] a){
 		
-		return a.Length > 0 ? a[UnityEngine.Random.Range(0, a.Length)] : default(T);
+		return a.Length > 0 ? a [UnityEngine.Random.Range (0, a.Length)] : default(T);
+	}
+
+	public static T Random<T> (this List<T> a){
+		
+		return a.Count > 0 ? a [UnityEngine.Random.Range (0, a.Count)] : default(T);
 	}
 	#endregion
 
 	#region Linear
 	public static float LC (float value, float range){
 
-		return value <= range ? Absolute(( value - range )) / range : 0;
+		return value <= range ? Absolute ((value - range)) / range : 0;
 	}
 	#endregion
 
 	#region Limit
 	public static float Limit (float a){
 		
-		return Limit(a, 0.1f);
+		return Limit (a, 0.1f);
 	}
 
 	public static float Limit (float a, float b){
@@ -107,18 +112,18 @@ public static class Calc
 	#region Switch
 	public static int Switch (float value, params float[] values){
 
-		for ( int n = 0; n < values.Length; n++ ){
+		for (int n = 0; n < values.Length; n++) {
 
-			if ( n + 1 < values.Length ){
+			if (n + 1 < values.Length) {
 
-				if ( value >= values[n] && value < values[n + 1] ){
+				if (value >= values [n] && value < values [n + 1]) {
 
 					return n;
 				}
 			}
-			else{
+			else {
 
-				if ( value > values[n] ){
+				if (value > values [n]) {
 
 					return n;
 				}
@@ -132,11 +137,11 @@ public static class Calc
 	#region Plus
 	public static void Plus (ref int value, int i, int max){
 
-		if ( value + i <= max ){
+		if (value + i <= max) {
 			
 			value += i;
 		}
-		else{
+		else {
 			
 			value = max;
 		}
@@ -146,11 +151,11 @@ public static class Calc
 	#region Minus
 	public static void Minus (ref int value, int i, int min){
 		
-		if ( value - i >= min ){
+		if (value - i >= min) {
 			
 			value -= i;
 		}
-		else{
+		else {
 			
 			value = min;
 		}
